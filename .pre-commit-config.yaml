@@ -1,0 +1,19 @@
+# Vérifications lancées avant chaque commit.
+# Installation : pip install pre-commit && pre-commit install
+# Sur tout le dépôt : pre-commit run --all-files
+exclude: ^(data/|site/|.*\.png$)  # données brutes et fichiers générés : jamais modifiés
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.5
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
