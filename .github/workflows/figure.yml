@@ -26,5 +26,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add temperature-mondiale-2026.png data/
-          git diff --cached --quiet || git commit -m "Figure régénérée depuis les données Copernicus"
+          git diff --cached --quiet || git commit -m "chore(data): régénère la figure depuis les données Copernicus"
           git push
