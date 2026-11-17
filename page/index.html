@@ -83,9 +83,10 @@
   <h2>Comment lire cette courbe</h2>
   <ul>
     <li><strong>La trajectoire actuelle</strong> est la référence officielle de l'État pour s'adapter (TRACC) : +2,7 °C en 2050 et +4 °C en 2100 en France hexagonale, ce qui correspond à environ +3 °C dans le monde.</li>
-    <li><strong>« Accord de Paris tenu »</strong> : si le réchauffement mondial est limité à +1,5 °C, la France se stabilise autour de +2 °C.</li>
+    <li><strong>« Accord de Paris »</strong> : la bande bleue couvre les deux scénarios du GIEC qui respectent l'accord, de « 1,5 °C » (SSP1-1.9) à « bien en dessous de 2 °C » (SSP1-2.6). Dans le premier, la température redescend légèrement après 2050, ce qui suppose de retirer plus de CO₂ de l'atmosphère qu'on n'en émet.</li>
     <li><strong>La France se réchauffe plus vite que la planète</strong>, parce que la moyenne mondiale inclut les océans, qui se réchauffent moins que les continents.</li>
-    <li>Les valeurs entre aujourd'hui, 2050 et 2100 sont interpolées entre les repères officiels : ce sont des ordres de grandeur.</li>
+    <li><strong>Pourquoi les années récentes sont au-dessus des courbes</strong> : en 2025, la France a été à +2,5 °C, dont +1,8 °C dus aux activités humaines selon Météo-France. Le reste vient de la variabilité naturelle, d'une année à l'autre. Les trajectoires partent de ce +1,8 °C : elles décrivent le climat, pas une année donnée.</li>
+    <li>Les valeurs mondiales du GIEC sont converties pour la France avec la correspondance officielle de la TRACC (+1,5 °C dans le monde donne +2 °C en France, +2 °C donne +2,7 °C, +3 °C donne +4 °C). Les valeurs entre les repères sont interpolées : ce sont des ordres de grandeur.</li>
   </ul>
 
   <h2>Sources</h2>
@@ -108,7 +109,7 @@
   const NOW = D.today.to + 1;                       // année en cours
   const TODAY_X = D.today.x;                        // centre de la moyenne récente
   const TRACC = Object.keys(D.tracc).map(Number).sort((a, b) => a - b);
-  const FUTURE = [[TODAY_X, D.today.level]].concat(TRACC.map(y => [y, D.tracc[y]]));
+  const FUTURE = [[D.start.x, D.start.level]].concat(TRACC.map(y => [y, D.tracc[y]]));
   const SMOOTH_YEARS = Object.keys(D.smooth).map(Number);
   const SMOOTH_MIN = Math.min(...SMOOTH_YEARS), SMOOTH_MAX = Math.max(...SMOOTH_YEARS);
   const DEFAULTS = { birth: 1969, children: [2000, 2006] };
@@ -130,6 +131,7 @@
       const t = (year - SMOOTH_MAX) / (TODAY_X - SMOOTH_MAX);
       return D.smooth[SMOOTH_MAX] + t * (D.today.level - D.smooth[SMOOTH_MAX]);
     }
+    if (year <= D.start.x) return D.today.level;    // années récentes : niveau observé
     for (let i = 1; i < FUTURE.length; i++) {
       if (year <= FUTURE[i][0]) {
         const [x0, y0] = FUTURE[i - 1], [x1, y1] = FUTURE[i];
@@ -181,7 +183,7 @@
       { x: state.birth, y: level(state.birth), ax: 0, ay: -44, arrowcolor: D.colors.muted,
         text: `<b>${small ? "Votre naissance" : state.birth + " : votre naissance"}</b><br>${fr(level(state.birth))} °C` },
       { x: TODAY_X, y: D.today.level, ax: small ? -60 : -110, ay: -36, arrowcolor: D.colors.muted,
-        text: `<b>Aujourd'hui</b><br>${fr(D.today.level)} °C` },
+        text: `<b>Aujourd'hui</b><br>${fr(D.today.level)} °C${small ? "" : ` (${D.today.from}-${D.today.to})`}` },
     ];
     const shapes = [];
     if (state.children.length) {
@@ -233,8 +235,8 @@
         : [`≈ ${fr(level(y))} °C`, `l'année de vos 80 ans (${y}), sur la trajectoire actuelle`]);
     }
     const end = D.tracc[TRACC[TRACC.length - 1]];
-    out.push([`${fr(end, 0)} ou ${fr(D.paris2100, 0)} °C`,
-      "en 2100 : trajectoire actuelle, ou Accord de Paris tenu"]);
+    out.push([`${fr(end, 0)} °C`,
+      `en 2100 sur la trajectoire actuelle ; ${fr(D.paris2100[0])} à ${fr(D.paris2100[1])} °C si l'Accord de Paris est respecté`]);
     const box = document.getElementById("cards");
     box.textContent = "";
     for (const [value, text] of out) {

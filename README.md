@@ -65,23 +65,56 @@ Ces deux fichiers ne sont pas téléchargés par le script : je n'ai pas trouvé
 d'adresse stable pour le faire. Chacun peut les réexporter depuis les deux
 sites ci-dessus et comparer.
 
-### Le futur : la trajectoire de référence de l'État (TRACC)
+### Le futur : uniquement des chiffres officiels
 
-Inscrite dans le code de l'environnement en janvier 2026, elle retient pour la
-France hexagonale +2 °C en 2030, +2,7 °C en 2050 et +4 °C en 2100 par rapport
-à l'ère préindustrielle, ce qui correspond à environ +3 °C dans le monde.
-Un monde limité à +1,5 °C donnerait environ +2 °C en France.
+Toutes les valeurs sont exprimées par rapport à l'ère préindustrielle. Pour la
+France hexagonale, Météo-France utilise 1900-1930, comparable à 1850-1900
+pour le réchauffement mondial : c'est la référence de la courbe observée
+([rapport TRACC, partie 1](https://drias-climat.fr/document/Rapport-TRACC-Partie1-V8-web-72DPI.pdf)).
+
+**Point de départ : le réchauffement d'origine humaine en 2025.** Selon
+[Météo-France](https://meteofrance.com/presse/25-degc-en-france-en-2025-comment-la-science-ameliore-la-prevision-des-risques-meteo)
+(communiqué du 23 mars 2026), la France a été à +2,5 °C en 2025, dont
++1,8 °C dus aux activités humaines ; le reste relève de la variabilité
+naturelle. La série de `data/` donne +2,53 °C pour 2025. Les trajectoires
+partent de ce +1,8 °C, car elles décrivent le climat et non une année donnée :
+c'est pourquoi les années récentes (et la moyenne 2016-2025, +2,2 °C) sont
+au-dessus.
+
+**Trajectoire actuelle (TRACC).** Inscrite dans le code de l'environnement en
+janvier 2026, elle retient pour la France hexagonale +2 °C en 2030, +2,7 °C
+en 2050 et +4 °C en 2100, ce qui correspond à +1,5, +2 et +3 °C dans le monde.
 Source : <https://www.ecologie.gouv.fr/trajectoire-rechauffement-reference-ladaptation-au-changement-climatique-tracc-0>.
+
+**Accord de Paris (GIEC).** La bande bleue couvre les deux scénarios du GIEC
+qui respectent l'accord (AR6, groupe I, tableau SPM.1, meilleures estimations
+du réchauffement mondial) :
+
+| Scénario | 2021-2040 | 2041-2060 | 2081-2100 |
+|---|---|---|---|
+| SSP1-1.9, « 1,5 °C » | +1,5 °C | +1,6 °C | +1,4 °C |
+| SSP1-2.6, « bien en dessous de 2 °C » | +1,5 °C | +1,7 °C | +1,8 °C |
+
+Elles sont converties pour la France avec la correspondance officielle de la
+TRACC (rapport TRACC, figure 1 et tableau 2) :
+
+| Monde | +1,2 °C | +1,5 °C | +2 °C | +3 °C |
+|---|---|---|---|---|
+| France hexagonale | +1,7 °C | +2 °C | +2,7 °C | +4 °C |
+
+Ce qui donne, en France, +2 °C en 2030 dans les deux cas, puis +2,1 à
++2,3 °C en 2050 et +1,9 à +2,4 °C en 2090. La légère baisse de SSP1-1.9 après
+2050 suppose des émissions nettes négatives. Le script affiche ces valeurs à
+chaque exécution.
 
 ### Limites
 
-- La TRACC se réfère à l'ère préindustrielle, la courbe observée à 1900-1930 :
-  les deux références ne sont pas strictement identiques.
-- La moyenne des dix dernières années (+2,2 °C) dépasse déjà le repère
-  officiel de 2030 (+2 °C) ; ce repère n'est donc pas tracé, et la trajectoire
-  part du niveau observé.
-- Les valeurs entre aujourd'hui, 2050 et 2100 sont interpolées entre les
-  repères officiels : ce sont des ordres de grandeur.
+- Les valeurs du GIEC sont placées au milieu de chaque période de 20 ans
+  (2030, 2050, 2090), et celle de 2090 est maintenue jusqu'en 2100.
+- La conversion monde / France est interpolée linéairement entre les points
+  officiels de la TRACC, qui ne couvrent que +1,2 à +3 °C dans le monde.
+- Entre les repères, les valeurs sont interpolées : ce sont des ordres de
+  grandeur.
 
 ### Voir la page en local
 
