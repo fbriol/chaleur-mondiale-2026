@@ -1,0 +1,40 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E", "W",  # pycodestyle
+    "F",       # pyflakes
+    "I",       # tri des imports (isort)
+    "N",       # conventions de nommage (pep8-naming)
+    "D",       # docstrings (pydocstyle)
+    "UP",      # syntaxe Python moderne (pyupgrade)
+    "ANN",     # annotations de type
+    "S",       # sécurité (bandit)
+    "B",       # pièges courants (bugbear)
+    "A",       # masquage des noms intégrés
+    "C4",      # compréhensions
+    "ICN",     # alias d'import usuels (np, pd, plt, mpl)
+    "PIE",     # instructions inutiles
+    "RET",     # valeurs de retour
+    "SIM",     # simplifications
+    "ARG",     # arguments inutilisés
+    "PTH",     # pathlib plutôt que os.path
+    "PD",      # bonnes pratiques pandas
+    "NPY",     # bonnes pratiques NumPy
+    "PERF",    # performances
+    "PL",      # pylint
+    "FLY",     # f-strings plutôt que join
+    "RUF",     # règles propres à Ruff
+    "ERA",     # code commenté
+]
+ignore = [
+    "C408",    # dict(...) reste plus lisible que {...} pour les options Plotly
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.pylint]
+max-args = 7
