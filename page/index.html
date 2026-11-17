@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le réchauffement de la France à l'échelle de votre famille</title>
+<meta name="description" content="Entrez votre année de naissance et celles de vos enfants : la courbe du réchauffement en France se redessine pour votre famille.">
+<!-- Page générée par build_page.py à partir de page/index.html : ne pas modifier site/index.html. -->
+<style>
+  :root {
+    --ink: #1f2328; --muted: #6b7280; --grid: #e5e7eb; --surface: #ffffff;
+    --page: #f6f7f8; --cool: #2a78d6;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: clamp(1.5rem, 4.5vw, 2.1rem); line-height: 1.2; margin: 0 0 8px; }
+  .lead { color: var(--muted); margin: 0 0 20px; }
+  form { display: grid; grid-template-columns: 1fr 1.4fr; gap: 12px; background: var(--surface);
+    border: 1px solid var(--grid); border-radius: 12px; padding: 16px; }
+  form > div { display: flex; flex-direction: column; justify-content: flex-end; }
+  label { display: block; font-size: .9rem; font-weight: 600; margin-bottom: 4px; }
+  .hint { font-weight: 400; color: var(--muted); }
+  input { width: 100%; font: inherit; padding: 10px 12px; border: 1px solid #c9ced6;
+    border-radius: 8px; background: #fff; color: var(--ink); }
+  input:focus { outline: 2px solid var(--cool); outline-offset: 1px; }
+  .error { grid-column: 1 / -1; color: #b3261e; font-size: .9rem; margin: 0; }
+  .error:empty { display: none; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .card { background: var(--surface); border: 1px solid var(--grid); border-radius: 12px;
+    padding: 14px 16px; }
+  .card .value { font-size: 1.7rem; font-weight: 700; line-height: 1.1; }
+  .card .label { color: var(--muted); font-size: .9rem; margin-top: 4px; }
+  figure { margin: 0; background: var(--surface); border: 1px solid var(--grid);
+    border-radius: 12px; padding: 12px 8px 4px; }
+  #chart { width: 100%; height: 560px; }
+  figcaption { color: var(--muted); font-size: .85rem; padding: 4px 8px 10px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0 28px; }
+  .button { font: inherit; font-weight: 600; padding: 11px 18px; border-radius: 8px;
+    border: 1px solid var(--ink); background: var(--ink); color: #fff; cursor: pointer;
+    text-decoration: none; display: inline-block; }
+  .button.secondary { background: var(--surface); color: var(--ink); }
+  h2 { font-size: 1.15rem; margin: 28px 0 8px; }
+  p, li { max-width: 68ch; }
+  .sources { color: var(--muted); font-size: .9rem; }
+  .sources a { color: inherit; }
+  @media (max-width: 640px) {
+    form, .cards { grid-template-columns: 1fr; }
+    #chart { height: 460px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Le réchauffement de la France, à l'échelle de votre famille</h1>
+  <p class="lead">Entrez vos dates : la courbe se redessine pour vous. Rien n'est envoyé ni enregistré, tout se calcule dans votre navigateur.</p>
+
+  <form id="form" novalidate>
+    <div>
+      <label for="birth">Votre année de naissance</label>
+      <input id="birth" type="number" inputmode="numeric" min="1905" max="2026" step="1">
+    </div>
+    <div>
+      <label for="children">Années de naissance de vos enfants <span class="hint">(facultatif, séparées par des virgules)</span></label>
+      <input id="children" type="text" inputmode="text" placeholder="2000, 2006">
+    </div>
+    <p class="error" id="error" role="alert"></p>
+  </form>
+
+  <div class="cards" id="cards"></div>
+
+  <figure>
+    <div id="chart" role="img" aria-label="Courbe du réchauffement en France de 1900 à 2100"></div>
+    <figcaption>Température moyenne de la France métropolitaine, écart à la moyenne 1900-1930. Survolez la courbe pour lire chaque année, sélectionnez une zone pour zoomer (double-clic pour revenir), cliquez sur la légende pour masquer une courbe.</figcaption>
+  </figure>
+
+  <div class="actions">
+    <button class="button" id="share" type="button">Copier le lien avec mes dates</button>
+    <a class="button secondary" href="https://fr.ulule.com/un-commun-accord/">Soutenir « Un commun accord »</a>
+  </div>
+
+  <h2>Comment lire cette courbe</h2>
+  <ul>
+    <li><strong>La trajectoire actuelle</strong> est la référence officielle de l'État pour s'adapter (TRACC) : +2,7 °C en 2050 et +4 °C en 2100 en France hexagonale, ce qui correspond à environ +3 °C dans le monde.</li>
+    <li><strong>« Accord de Paris tenu »</strong> : si le réchauffement mondial est limité à +1,5 °C, la France se stabilise autour de +2 °C.</li>
+    <li><strong>La France se réchauffe plus vite que la planète</strong>, parce que la moyenne mondiale inclut les océans, qui se réchauffent moins que les continents.</li>
+    <li>Les valeurs entre aujourd'hui, 2050 et 2100 sont interpolées entre les repères officiels : ce sont des ordres de grandeur.</li>
+  </ul>
+
+  <h2>Sources</h2>
+  <p class="sources">
+    Passé : Météo-France, indicateur thermique national (30 stations), série 1900-2017 diffusée par le
+    <a href="https://www.donnees.statistiques.developpement-durable.gouv.fr/lesessentiels/indicateurs/e13.html">ministère de la Transition écologique</a>,
+    complétée jusqu'en {{LAST_YEAR}} par <a href="https://dataclimat.fr/temperature/itn">dataclimat.fr</a>.
+    Futur : <a href="https://www.ecologie.gouv.fr/trajectoire-rechauffement-reference-ladaptation-au-changement-climatique-tracc-0">trajectoire de réchauffement de référence (TRACC)</a>.
+    La trajectoire se réfère à l'ère préindustrielle, la courbe observée à 1900-1930 : les deux références ne sont pas strictement identiques.
+    Code, données et méthode : <a href="https://github.com/fbriol/chaleur-mondiale-2026">github.com/fbriol/chaleur-mondiale-2026</a>.
+  </p>
+</main>
+
+<script src="https://cdn.plot.ly/plotly-{{PLOTLY_VERSION}}.min.js" charset="utf-8"></script>
+<script>
+(function () {
+  "use strict";
+  const FIG = {{FIGURE}};
+  const D = {{DATA}};
+  const NOW = D.today.to + 1;                       // année en cours
+  const TODAY_X = D.today.x;                        // centre de la moyenne récente
+  const TRACC = Object.keys(D.tracc).map(Number).sort((a, b) => a - b);
+  const FUTURE = [[TODAY_X, D.today.level]].concat(TRACC.map(y => [y, D.tracc[y]]));
+  const SMOOTH_YEARS = Object.keys(D.smooth).map(Number);
+  const SMOOTH_MIN = Math.min(...SMOOTH_YEARS), SMOOTH_MAX = Math.max(...SMOOTH_YEARS);
+  const DEFAULTS = { birth: 1969, children: [2000, 2006] };
+  const CONFIG = { responsive: true, displaylogo: false,
+    modeBarButtonsToRemove: ["select2d", "lasso2d", "autoScale2d"],
+    toImageButtonOptions: { filename: "rechauffement-france", scale: 2 } };
+  const chart = document.getElementById("chart");
+
+  const fr = (v, digits = 1) => {
+    const text = Math.abs(v).toFixed(digits).replace(".", ",");
+    return (v < 0 ? "−" : "+") + text;
+  };
+
+  // Niveau du climat une année donnée : courbe lissée, puis niveau actuel, puis trajectoire.
+  function level(year) {
+    if (year <= SMOOTH_MIN) return D.smooth[SMOOTH_MIN];
+    if (year <= SMOOTH_MAX) return D.smooth[Math.round(year)];
+    if (year <= TODAY_X) {
+      const t = (year - SMOOTH_MAX) / (TODAY_X - SMOOTH_MAX);
+      return D.smooth[SMOOTH_MAX] + t * (D.today.level - D.smooth[SMOOTH_MAX]);
+    }
+    for (let i = 1; i < FUTURE.length; i++) {
+      if (year <= FUTURE[i][0]) {
+        const [x0, y0] = FUTURE[i - 1], [x1, y1] = FUTURE[i];
+        return y0 + (year - x0) / (x1 - x0) * (y1 - y0);
+      }
+    }
+    return FUTURE[FUTURE.length - 1][1];
+  }
+
+  // --- lecture des dates (adresse de la page, puis formulaire) -------------
+  function fromUrl() {
+    const p = new URLSearchParams(location.search);
+    const birth = parseInt(p.get("n"), 10);
+    const children = (p.get("e") || "").split(/[^0-9]+/).filter(Boolean).map(Number);
+    if (!Number.isFinite(birth)) return DEFAULTS;
+    return { birth, children };
+  }
+
+  function validate(birthText, childrenText) {
+    const birth = parseInt(birthText, 10);
+    if (!Number.isFinite(birth) || birth < 1905 || birth > NOW)
+      return { error: `Entrez une année de naissance entre 1905 et ${NOW}.` };
+    const children = childrenText.split(/[^0-9]+/).filter(Boolean).map(Number);
+    if (children.length > 8) return { error: "Huit enfants au maximum." };
+    for (const c of children)
+      if (c <= birth || c > NOW)
+        return { error: `Chaque enfant doit être né après ${birth} et au plus tard en ${NOW}.` };
+    return { birth, children: children.sort((a, b) => a - b) };
+  }
+
+  // --- figure : la courbe de build_page.py, plus les repères de la famille --
+  function render(state) {
+    const small = chart.getBoundingClientRect().width < 560;
+    const age = NOW - state.birth;
+    const sameAge = state.children.map(c => c + age).filter(y => y <= 2100);
+    const points = [
+      { x: state.birth, label: small ? "Vous" : `${state.birth} : votre naissance` },
+      ...state.children.map((c, i) => ({ x: c, label: small ? `Enfant ${i + 1}` : `Naissance, enfant ${i + 1}` })),
+      { x: TODAY_X, label: "Aujourd'hui" },
+    ];
+    const family = {
+      type: "scatter", mode: "markers", name: "Votre famille",
+      x: points.map(p => p.x), y: points.map(p => level(p.x)),
+      text: points.map(p => p.label),
+      marker: { size: 12, color: D.colors.ink, line: { color: "#fff", width: 2.5 } },
+      hovertemplate: "%{text}<extra></extra>",
+    };
+    const annotations = [
+      { x: state.birth, y: level(state.birth), ax: 0, ay: -44, arrowcolor: D.colors.muted,
+        text: `<b>${small ? "Votre naissance" : state.birth + " : votre naissance"}</b><br>${fr(level(state.birth))} °C` },
+      { x: TODAY_X, y: D.today.level, ax: small ? -60 : -110, ay: -36, arrowcolor: D.colors.muted,
+        text: `<b>Aujourd'hui</b><br>${fr(D.today.level)} °C` },
+    ];
+    const shapes = [];
+    if (state.children.length) {
+      const mid = state.children.reduce((a, b) => a + b, 0) / state.children.length;
+      annotations.push({ x: mid, y: level(mid), ax: small ? 30 : 60, ay: 50, arrowcolor: D.colors.muted,
+        text: `<b>${state.children.length > 1 ? "Vos enfants" : "Votre enfant"}</b>` });
+    }
+    if (sameAge.length) {
+      const a = Math.min(...sameAge) - 0.6, b = Math.max(...sameAge) + 0.6;
+      shapes.push({ type: "rect", xref: "x", yref: "paper", x0: a, x1: b, y0: 0, y1: 1,
+        fillcolor: D.colors.band, line: { width: 0 }, layer: "below" });
+      annotations.push({ x: (a + b) / 2, y: -0.9, showarrow: false,
+        text: `${state.children.length > 1 ? "Vos enfants" : "Votre enfant"}<br>à votre âge`,
+        font: { size: 12, color: D.colors.muted } });
+    }
+    const layout = Object.assign({}, FIG.layout, {
+      shapes: (FIG.layout.shapes || []).concat(shapes),
+      annotations: (FIG.layout.annotations || []).map(a => small && a.text.includes("plus chaude")
+          ? Object.assign({}, a, { text: a.text.split(" :")[0].replace(" (", ", record (") })
+          : a).concat(
+        annotations.map(a => Object.assign({ font: { size: 13 }, bgcolor: "rgba(255,255,255,.8)" }, a))),
+      xaxis: Object.assign({}, FIG.layout.xaxis,
+        small ? { tickvals: [1900, 2000, 2100] } : {}),
+      uirevision: "garder-le-zoom",
+    });
+    Plotly.react(chart, FIG.data.concat([family]), layout, CONFIG);
+  }
+
+  function cards(state) {
+    const age = NOW - state.birth;
+    const out = [];
+    out.push([`${fr(D.today.level - level(state.birth))} °C`,
+      `en France depuis votre naissance, en ${state.birth}`]);
+    if (state.children.length) {
+      const years = state.children.map(c => c + age);
+      const a = Math.min(...years), b = Math.max(...years);
+      const span = a === b ? `${a}` : `${a}-${b}`;
+      const who = state.children.length > 1 ? "vos enfants auront" : "votre enfant aura";
+      if (a > 2100) {
+        out.push(["après 2100", `quand ${who} votre âge (${span}), au-delà des projections`]);
+      } else {
+        const v = level(Math.min((a + b) / 2, 2100));
+        out.push([`≈ ${fr(v)} °C`, `quand ${who} votre âge (${span}), sur la trajectoire actuelle`]);
+      }
+    } else {
+      const y = state.birth + 80;
+      out.push(y <= NOW ? [`${fr(D.today.level)} °C`, "le niveau atteint aujourd'hui"]
+        : y > 2100 ? ["après 2100", `l'année de vos 80 ans (${y}), au-delà des projections`]
+        : [`≈ ${fr(level(y))} °C`, `l'année de vos 80 ans (${y}), sur la trajectoire actuelle`]);
+    }
+    const end = D.tracc[TRACC[TRACC.length - 1]];
+    out.push([`${fr(end, 0)} ou ${fr(D.paris2100, 0)} °C`,
+      "en 2100 : trajectoire actuelle, ou Accord de Paris tenu"]);
+    const box = document.getElementById("cards");
+    box.textContent = "";
+    for (const [value, text] of out) {
+      const card = document.createElement("div");
+      card.className = "card";
+      const v = document.createElement("div"); v.className = "value"; v.textContent = value;
+      const l = document.createElement("div"); l.className = "label"; l.textContent = text;
+      card.append(v, l);
+      box.appendChild(card);
+    }
+  }
+
+  // --- interactions ---------------------------------------------------------
+  const birthInput = document.getElementById("birth");
+  const childrenInput = document.getElementById("children");
+  const errorBox = document.getElementById("error");
+  birthInput.max = NOW;
+  let current;
+
+  function update(pushUrl) {
+    const state = validate(birthInput.value, childrenInput.value);
+    if (state.error) { errorBox.textContent = state.error; return; }
+    errorBox.textContent = "";
+    current = state;
+    render(state);
+    cards(state);
+    if (pushUrl) {
+      const p = new URLSearchParams({ n: state.birth });
+      if (state.children.length) p.set("e", state.children.join("-"));
+      try { history.replaceState(null, "", "?" + p.toString()); } catch (e) { /* aperçu local */ }
+    }
+  }
+
+  const initial = fromUrl();
+  birthInput.value = initial.birth;
+  childrenInput.value = initial.children.join(", ");
+  if (validate(birthInput.value, childrenInput.value).error) {
+    birthInput.value = DEFAULTS.birth;
+    childrenInput.value = DEFAULTS.children.join(", ");
+  }
+  update(false);
+  birthInput.addEventListener("input", () => update(true));
+  childrenInput.addEventListener("input", () => update(true));
+  document.getElementById("form").addEventListener("submit", e => e.preventDefault());
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => current && render(current), 150);
+  });
+
+  const share = document.getElementById("share");
+  share.addEventListener("click", async () => {
+    update(true);
+    try {
+      await navigator.clipboard.writeText(location.href);
+      share.textContent = "Lien copié";
+    } catch (e) {
+      share.textContent = "Copiez l'adresse de la page";
+    }
+    setTimeout(() => { share.textContent = "Copier le lien avec mes dates"; }, 2500);
+  });
+})();
+</script>
+</body>
+</html>
