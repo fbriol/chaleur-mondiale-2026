@@ -1,0 +1,23 @@
+# Page interactive générée par build_page.py
+site/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+
+# Outils
+.ruff_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Éditeurs et système
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
